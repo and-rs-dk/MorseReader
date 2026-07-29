@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#020817">
+
+  <title>MorseReader Test Signal</title>
+
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: #020817;
+      color: white;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    svg {
+      width: min(90vw, 90vh);
+      height: min(90vw, 90vh);
+    }
+
+    p {
+      margin: 0;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" width="720" height="720"
+     viewBox="0 0 720 720">
+  <defs>
+    <radialGradient id="offLed">
+      <stop offset="0" stop-color="#0d5660"/>
+      <stop offset="1" stop-color="#052c34"/>
+    </radialGradient>
+    <radialGradient id="onLed" cx="38%" cy="32%">
+      <stop offset="0" stop-color="#f4ffff"/>
+      <stop offset="0.2" stop-color="#79fff8"/>
+      <stop offset="1" stop-color="#08d8cc"/>
+    </radialGradient>
+    <filter id="glow" x="-200%" y="-200%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="42"/>
+    </filter>
+  </defs>
+  <rect width="720" height="720" fill="#020817"/>
+  <circle cx="360" cy="360" r="66" fill="url(#offLed)"
+          stroke="#0b6670" stroke-width="6"/>
+  <g opacity="0">
+    <circle cx="360" cy="360" r="125" fill="#00f5eb"
+            opacity="0.72" filter="url(#glow)"/>
+    <circle cx="360" cy="360" r="66" fill="url(#onLed)"
+            stroke="#d6fffb" stroke-width="7"/>
+    <circle cx="342" cy="336" r="13" fill="#efffff"/>
+    <animate attributeName="opacity"
+             values="0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;0"
+             keyTimes="0.00000000;0.08660508;0.09353349;0.10046189;0.10739030;0.11431871;0.12124711;0.12817552;0.13510393;0.15588915;0.16281755;0.18360277;0.19053118;0.19745958;0.21824480;0.22517321;0.23210162;0.23903002;0.24595843;0.26674365;0.27367206;0.28060046;0.30138568;0.30831409;0.31524249;0.32217090;0.32909931;0.34988453;0.37066975;0.37759815;0.39838337;0.40531178;0.42609700;0.47459584;0.48152425;0.48845266;0.50923788;0.51616628;0.53695150;0.55773672;0.57852194;0.58545035;0.60623557;0.61316397;0.63394919;0.65473441;0.66166282;0.66859122;0.68937644;0.69630485;0.70323326;0.72401848;0.73094688;0.73787529;0.75866051;0.76558891;0.77251732;0.77944573;0.78637413;0.80715935;0.82794457;0.83487298;0.84180139;0.84872979;0.85565820;1.00000000"
+             calcMode="discrete"
+             dur="17.320s"
+             repeatCount="indefinite"/>
+  </g>
+</svg>
+  <p>HELLO WORLD · 120 ms dot period</p>
+</body>
+</html>
