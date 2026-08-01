@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#020817">
+
+  <title>MorseReader ITA2 Test Signal</title>
+
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: #020817;
+      color: white;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    svg {
+      width: min(90vw, 90vh);
+      height: min(90vw, 90vh);
+    }
+
+    p {
+      margin: 0;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" width="720" height="720"
+     viewBox="0 0 720 720">
+  <title>LED transmitting HELLO WORLD 123 using Manchester-encoded ITA2</title>
+  <desc>60 Hz display timing, 50 ms Manchester half-bit, LTRS and FIGS sync markers</desc>
+  <defs>
+    <radialGradient id="offLed">
+      <stop offset="0" stop-color="#0d5660"/>
+      <stop offset="1" stop-color="#052c34"/>
+    </radialGradient>
+    <radialGradient id="onLed" cx="38%" cy="32%">
+      <stop offset="0" stop-color="#f4ffff"/>
+      <stop offset="0.2" stop-color="#79fff8"/>
+      <stop offset="1" stop-color="#08d8cc"/>
+    </radialGradient>
+    <filter id="glow" x="-200%" y="-200%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="42"/>
+    </filter>
+  </defs>
+  <rect width="720" height="720" fill="#020817"/>
+  <circle cx="360" cy="360" r="66" fill="url(#offLed)"
+          stroke="#0b6670" stroke-width="6"/>
+  <g opacity="0">
+    <circle cx="360" cy="360" r="125" fill="#00f5eb"
+            opacity="0.72" filter="url(#glow)"/>
+    <circle cx="360" cy="360" r="66" fill="url(#onLed)"
+            stroke="#d6fffb" stroke-width="7"/>
+    <circle cx="342" cy="336" r="13" fill="#efffff"/>
+    <animate attributeName="opacity"
+             values="0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;0"
+             keyTimes="0.000000000;0.097345133;0.115044248;0.123893805;0.128318584;0.132743363;0.137168142;0.146017699;0.154867257;0.163716814;0.168141593;0.172566372;0.181415929;0.185840708;0.190265487;0.194690265;0.199115044;0.203539823;0.207964602;0.212389381;0.216814159;0.225663717;0.234513274;0.238938053;0.243362832;0.252212389;0.261061947;0.269911504;0.278761062;0.283185841;0.287610619;0.296460177;0.305309735;0.309734513;0.314159292;0.318584071;0.323008850;0.331858407;0.336283186;0.340707965;0.349557522;0.353982301;0.358407080;0.367256637;0.376106195;0.380530973;0.384955752;0.393805310;0.398230088;0.402654867;0.411504425;0.415929204;0.420353982;0.429203540;0.438053097;0.442477876;0.446902655;0.451327434;0.455752212;0.464601770;0.469026549;0.473451327;0.477876106;0.486725664;0.504424779;0.513274336;0.517699115;0.526548673;0.535398230;0.544247788;0.553097345;0.557522124;0.561946903;0.570796460;0.579646018;0.584070796;0.588495575;0.597345133;0.601769912;0.606194690;0.615044248;0.619469027;0.623893805;0.632743363;0.641592920;0.646017699;0.650442478;0.654867257;0.659292035;0.668141593;0.676991150;0.681415929;0.685840708;0.699115044;0.725663717;0.738938053;0.743362832;0.747787611;0.752212389;0.756637168;0.765486726;0.774336283;0.778761062;0.783185841;0.787610619;0.792035398;0.800884956;0.805309735;0.809734513;0.818584071;0.823008850;0.827433628;0.836283186;0.840707965;0.845132743;0.849557522;0.853982301;0.858407080;0.862831858;1.000000000"
+             calcMode="discrete"
+             dur="11.300s"
+             repeatCount="indefinite"/>
+  </g>
+</svg>
+  <p>HELLO WORLD 123 · Manchester ITA2 · T=50 ms</p>
+</body>
+</html>
