@@ -1,6 +1,6 @@
 # Classic Morse — Protocol and Transmitter
 
-[Back to MorseReader Support](app-store-support.md)
+[Back to MorseReader Support](support.md)
 
 Classic Morse supports letters A–Z, digits 0–9, and spaces. MorseReader estimates the dot duration automatically; a known dot duration can also be entered manually in milliseconds.
 

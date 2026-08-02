@@ -1,6 +1,6 @@
 # High-Speed Teletype — Protocol and Transmitter
 
-[Back to MorseReader Support](app-store-support.md)
+[Back to MorseReader Support](support.md)
 
 High-Speed Teletype uses Manchester-encoded five-bit ITA2. Let `T` be one Manchester half-bit period.
 

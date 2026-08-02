@@ -4,74 +4,107 @@
   <meta charset="utf-8">
   <meta name="viewport"
         content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#020817">
-
-  <title>MorseReader Test Signal</title>
-
+  <meta name="theme-color" content="#000000">
+  <title>MorseReader Morse Test Signal</title>
   <style>
+    * { box-sizing: border-box; }
+
     html, body {
-      width: 100%;
-      height: 100%;
+      min-height: 100%;
       margin: 0;
-      background: #020817;
-      color: white;
-      font-family: system-ui, sans-serif;
+      background: #000;
+      color: #fff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     body {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      gap: 0.75rem;
+      padding: max(1rem, env(safe-area-inset-top)) 1rem
+               max(1rem, env(safe-area-inset-bottom));
+      text-align: center;
     }
 
-    svg {
-      width: min(90vw, 90vh);
-      height: min(90vw, 90vh);
+    .warning {
+      width: min(58rem, 100%);
+      padding: 1rem 1.25rem;
+      border: 3px solid #ffcc00;
+      border-radius: 0.8rem;
+      background: #342900;
+      color: #fff4b8;
+      font-size: clamp(1rem, 2.4vw, 1.35rem);
+      font-weight: 750;
+      line-height: 1.35;
     }
 
-    p {
+    .warning strong { color: #ffdf42; }
+
+    .signal {
+      width: min(72vw, 72vh, 720px);
+      height: min(72vw, 72vh, 720px);
+      min-height: 240px;
+    }
+
+    .signal > svg { width: 100%; height: 100%; display: block; }
+
+    .details {
       margin: 0;
-      opacity: 0.6;
+      color: #b8c2cc;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+    }
+
+    @media (max-height: 700px) {
+      .warning { padding: 0.65rem 0.9rem; font-size: 0.95rem; }
+      .signal { width: min(58vw, 58vh); height: min(58vw, 58vh); }
     }
   </style>
 </head>
-
 <body>
-  <svg xmlns="http://www.w3.org/2000/svg" width="720" height="720"
+  <aside class="warning" role="alert">
+    <strong>Screen-test warning:</strong>
+    Timing estimation and automatic color selection is
+    unreliable when decoding from screen. Use a real LED for
+    representative testing.
+  </aside>
+  <main class="signal" aria-label="Animated LED transmitting Classic Morse">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="720"
      viewBox="0 0 720 720">
+  <title>LED transmitting HELLO WORLD  using Morse code</title>
+  <desc>Morse dot duration 100 ms</desc>
   <defs>
     <radialGradient id="offLed">
-      <stop offset="0" stop-color="#0d5660"/>
-      <stop offset="1" stop-color="#052c34"/>
+      <stop offset="0" stop-color="#001800"/>
+      <stop offset="1" stop-color="#000800"/>
     </radialGradient>
     <radialGradient id="onLed" cx="38%" cy="32%">
-      <stop offset="0" stop-color="#f4ffff"/>
-      <stop offset="0.2" stop-color="#79fff8"/>
-      <stop offset="1" stop-color="#08d8cc"/>
+      <stop offset="0" stop-color="#00ff00"/>
+      <stop offset="0.2" stop-color="#00f000"/>
+      <stop offset="1" stop-color="#00b800"/>
     </radialGradient>
     <filter id="glow" x="-200%" y="-200%" width="400%" height="400%">
       <feGaussianBlur stdDeviation="42"/>
     </filter>
   </defs>
-  <rect width="720" height="720" fill="#020817"/>
+  <rect width="720" height="720" fill="#000000"/>
   <circle cx="360" cy="360" r="66" fill="url(#offLed)"
-          stroke="#0b6670" stroke-width="6"/>
+          stroke="#003000" stroke-width="6"/>
   <g opacity="0">
-    <circle cx="360" cy="360" r="125" fill="#00f5eb"
+    <circle cx="360" cy="360" r="125" fill="#00ff00"
             opacity="0.72" filter="url(#glow)"/>
     <circle cx="360" cy="360" r="66" fill="url(#onLed)"
-            stroke="#d6fffb" stroke-width="7"/>
-    <circle cx="342" cy="336" r="13" fill="#efffff"/>
+            stroke="#00ff00" stroke-width="7"/>
+    <circle cx="342" cy="336" r="13" fill="#00ff00"/>
     <animate attributeName="opacity"
              values="0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;0"
-             keyTimes="0.00000000;0.08660508;0.09353349;0.10046189;0.10739030;0.11431871;0.12124711;0.12817552;0.13510393;0.15588915;0.16281755;0.18360277;0.19053118;0.19745958;0.21824480;0.22517321;0.23210162;0.23903002;0.24595843;0.26674365;0.27367206;0.28060046;0.30138568;0.30831409;0.31524249;0.32217090;0.32909931;0.34988453;0.37066975;0.37759815;0.39838337;0.40531178;0.42609700;0.47459584;0.48152425;0.48845266;0.50923788;0.51616628;0.53695150;0.55773672;0.57852194;0.58545035;0.60623557;0.61316397;0.63394919;0.65473441;0.66166282;0.66859122;0.68937644;0.69630485;0.70323326;0.72401848;0.73094688;0.73787529;0.75866051;0.76558891;0.77251732;0.77944573;0.78637413;0.80715935;0.82794457;0.83487298;0.84180139;0.84872979;0.85565820;1.00000000"
+             keyTimes="0.00000000;0.09933775;0.10596026;0.11258278;0.11920530;0.12582781;0.13245033;0.13907285;0.14569536;0.16556291;0.17218543;0.19205298;0.19867550;0.20529801;0.22516556;0.23178808;0.23841060;0.24503311;0.25165563;0.27152318;0.27814570;0.28476821;0.30463576;0.31125828;0.31788079;0.32450331;0.33112583;0.35099338;0.37086093;0.37748344;0.39735099;0.40397351;0.42384106;0.47019868;0.47682119;0.48344371;0.50331126;0.50993377;0.52980132;0.54966887;0.56953642;0.57615894;0.59602649;0.60264901;0.62251656;0.64238411;0.64900662;0.65562914;0.67549669;0.68211921;0.68874172;0.70860927;0.71523179;0.72185430;0.74172185;0.74834437;0.75496689;0.76158940;0.76821192;0.78807947;0.80794702;0.81456954;0.82119205;0.82781457;0.83443709;1.00000000"
              calcMode="discrete"
-             dur="17.320s"
+             dur="15.100s"
              repeatCount="indefinite"/>
   </g>
 </svg>
-  <p>HELLO WORLD · 120 ms dot period</p>
+  </main>
+  <p class="details">HELLO WORLD · Classic Morse · dot=100 ms</p>
 </body>
 </html>

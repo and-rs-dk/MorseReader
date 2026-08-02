@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07100b">
+  <meta name="description" content="MorseReader turns an iPhone camera into an optical receiver for Classic Morse and Manchester-encoded ITA2 transmitted by an LED.">
+  <title>MorseReader — Read device diagnostics from an LED</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --background: #07100b;
+      --surface: #0d1a12;
+      --surface-bright: #13271a;
+      --line: #26432e;
+      --text: #f2f8f3;
+      --muted: #abc1b0;
+      --green: #52f57a;
+      --green-soft: #b7ffc8;
+      --amber: #f6c667;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 75% 10%, #173b22 0, transparent 28rem),
+        linear-gradient(180deg, #07100b 0%, #09140d 52%, #050a07 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .shell { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      gap: 1rem;
+    }
+
+    .brand { font-weight: 800; letter-spacing: -0.025em; text-decoration: none; }
+    .brand-dot { color: var(--green); text-shadow: 0 0 16px #36ff6d; }
+
+    .nav-links { display: flex; gap: 1.2rem; color: var(--muted); font-size: 0.95rem; }
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      align-items: center;
+      gap: clamp(2rem, 7vw, 6rem);
+      min-height: min(760px, calc(100vh - 72px));
+      padding: 4rem 0 6rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 1rem;
+      color: var(--green);
+      font-weight: 750;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    h1, h2, h3 { line-height: 1.08; letter-spacing: -0.035em; }
+    h1 { margin: 0; max-width: 760px; font-size: clamp(3rem, 8vw, 6.5rem); }
+    h2 { margin: 0 0 1rem; font-size: clamp(2rem, 4vw, 3.4rem); }
+    h3 { margin: 0 0 0.7rem; font-size: 1.45rem; }
+
+    .lead { max-width: 690px; margin: 1.5rem 0 0; color: var(--muted); font-size: clamp(1.1rem, 2.1vw, 1.35rem); }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 0.7rem 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: 0.7rem;
+      background: var(--surface);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .button.primary { border-color: var(--green); background: var(--green); color: #041008; }
+    .button:hover { transform: translateY(-1px); filter: brightness(1.08); }
+
+    .receiver {
+      position: relative;
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 2rem;
+      background: linear-gradient(145deg, #101c14, #080f0a);
+      box-shadow: 0 36px 90px #0009, inset 0 1px #ffffff0a;
+      overflow: hidden;
+    }
+
+    .receiver::before {
+      content: "";
+      width: 116px;
+      height: 116px;
+      border-radius: 50%;
+      background: #42ff6f;
+      box-shadow: 0 0 24px #38ff6f, 0 0 90px #27f05d99, 0 0 180px #1ed74d55;
+      animation: pulse 2.4s steps(1, end) infinite;
+    }
+
+    .receiver::after {
+      content: "ON  OFF  ·  ON  OFF  ·  ON  ON";
+      position: absolute;
+      bottom: 1.5rem;
+      color: #78a482;
+      font: 600 0.72rem/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: 0.08em;
+    }
+
+    @keyframes pulse {
+      0%, 22%, 47%, 76% { opacity: 1; }
+      12%, 34%, 62%, 88% { opacity: 0.08; }
+    }
+
+    section { padding: clamp(4rem, 9vw, 7rem) 0; }
+    .section-intro { max-width: 720px; color: var(--muted); font-size: 1.1rem; }
+
+    .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2.5rem; }
+    .card {
+      padding: clamp(1.4rem, 4vw, 2.2rem);
+      border: 1px solid var(--line);
+      border-radius: 1.1rem;
+      background: linear-gradient(145deg, var(--surface-bright), var(--surface));
+    }
+    .card p { margin: 0; color: var(--muted); }
+    .card a { display: inline-block; margin-top: 1rem; color: var(--green-soft); font-weight: 700; }
+    .tag { display: inline-block; margin-bottom: 1.2rem; color: var(--amber); font: 700 0.76rem ui-monospace, monospace; letter-spacing: 0.08em; }
+
+    .status {
+      margin: 2.5rem 0 0;
+      padding: clamp(1.3rem, 4vw, 2rem);
+      border-left: 4px solid var(--green);
+      background: #020603;
+      color: var(--green-soft);
+      font: 600 clamp(0.9rem, 2.4vw, 1.25rem)/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+      overflow-wrap: anywhere;
+    }
+
+    .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2.5rem; }
+    .principle { padding-top: 1.25rem; border-top: 1px solid var(--line); }
+    .principle strong { display: block; margin-bottom: 0.45rem; }
+    .principle span { color: var(--muted); }
+
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: clamp(2rem, 6vw, 4rem);
+      border: 1px solid #3d704a;
+      border-radius: 1.5rem;
+      background: linear-gradient(120deg, #15351f, #0b180f);
+    }
+    .cta h2 { max-width: 650px; margin: 0; }
+
+    footer { padding: 3rem 0; color: #7f9885; font-size: 0.9rem; }
+    footer .shell { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    footer a { color: var(--muted); }
+
+    @media (max-width: 760px) {
+      .nav-links a:not(:last-child) { display: none; }
+      .hero { grid-template-columns: 1fr; padding-top: 2.5rem; }
+      .receiver { min-height: 320px; }
+      .cards, .principles { grid-template-columns: 1fr; }
+      .cta { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .receiver::before { animation: none; }
+      .button:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <nav aria-label="Main navigation">
+      <a class="brand" href="index.html">MorseReader<span class="brand-dot">●</span></a>
+      <div class="nav-links">
+        <a href="#modes">Modes</a>
+        <a href="#privacy">Privacy</a>
+        <a href="support.html">Support</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="shell hero">
+      <div>
+        <p class="eyebrow">Optical diagnostics for iPhone</p>
+        <h1>Read the device when you can’t reach the port.</h1>
+        <p class="lead">MorseReader turns your iPhone camera into a receiver for diagnostics transmitted by an ordinary blinking LED—no cable, network, radio or extra hardware required.</p>
+        <div class="actions">
+          <a class="button primary" href="#modes">Explore the two modes</a>
+          <a class="button" href="support.html">Read support</a>
+        </div>
+      </div>
+      <div class="receiver" role="img" aria-label="A green diagnostic LED blinking an optical message"></div>
+    </div>
+
+    <section id="modes">
+      <div class="shell">
+        <p class="eyebrow">One idea, two generations</p>
+        <h2>Classic Morse and its five-bit successor.</h2>
+        <p class="section-intro">Choose traditional Morse for simple human-readable transmitters, or Manchester-encoded ITA2 for deterministic bit timing, alphabet synchronization and denser diagnostic messages.</p>
+        <div class="cards">
+          <article class="card">
+            <span class="tag">CLASSIC MORSE</span>
+            <h3>Simple enough for almost any firmware</h3>
+            <p>Decode letters, digits and spaces. MorseReader estimates the dot duration automatically, with a manual timing override for difficult optical conditions.</p>
+            <a href="support-morse.html">Morse protocol guide →</a><br>
+            <a href="test-morse.html">Open animated test signal →</a>
+          </article>
+          <article class="card">
+            <span class="tag">HIGH-SPEED TELETYPE</span>
+            <h3>Manchester-encoded ITA2</h3>
+            <p>Decode five-bit letters and figures using guarded sync markers that establish symbol boundaries and select the active ITA2 alphabet.</p>
+            <a href="support-ita2.html">ITA2 protocol guide →</a><br>
+            <a href="test-ita2.html">Open animated test signal →</a>
+          </article>
+        </div>
+        <div class="status" aria-label="Example decoded diagnostic message">PID1 RUN SP500 PV487 ER13 OUT42</div>
+      </div>
+    </section>
+
+    <section id="privacy">
+      <div class="shell">
+        <p class="eyebrow">Camera-first, private by design</p>
+        <h2>The signal stays on your phone.</h2>
+        <p class="section-intro">MorseReader performs camera analysis and decoding on-device. It requires no account and has no cloud decoding service.</p>
+        <div class="principles">
+          <div class="principle"><strong>No network receiver</strong><span>Useful for isolated, offline and embedded equipment.</span></div>
+          <div class="principle"><strong>No electrical connection</strong><span>Observe status without opening an enclosure or sharing ground.</span></div>
+          <div class="principle"><strong>Diagnostics under your control</strong><span>Recordings and logs are created only when you choose to save them.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell cta">
+        <h2>Give a one-LED device a readable diagnostic channel.</h2>
+        <a class="button primary" href="support.html">Get started</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <span>© 2026 and-rs.dk · MorseReader</span>
+      <span><a href="support.html">Support</a> · <a href="https://github.com/and-rs-dk/MorseReader">Source and examples</a></span>
+    </div>
+  </footer>
+</body>
+</html>

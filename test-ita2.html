@@ -4,76 +4,107 @@
   <meta charset="utf-8">
   <meta name="viewport"
         content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#020817">
-
+  <meta name="theme-color" content="#000000">
   <title>MorseReader ITA2 Test Signal</title>
-
   <style>
+    * { box-sizing: border-box; }
+
     html, body {
-      width: 100%;
-      height: 100%;
+      min-height: 100%;
       margin: 0;
-      background: #020817;
-      color: white;
-      font-family: system-ui, sans-serif;
+      background: #000;
+      color: #fff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     body {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      gap: 0.75rem;
+      padding: max(1rem, env(safe-area-inset-top)) 1rem
+               max(1rem, env(safe-area-inset-bottom));
+      text-align: center;
     }
 
-    svg {
-      width: min(90vw, 90vh);
-      height: min(90vw, 90vh);
+    .warning {
+      width: min(58rem, 100%);
+      padding: 1rem 1.25rem;
+      border: 3px solid #ffcc00;
+      border-radius: 0.8rem;
+      background: #342900;
+      color: #fff4b8;
+      font-size: clamp(1rem, 2.4vw, 1.35rem);
+      font-weight: 750;
+      line-height: 1.35;
     }
 
-    p {
+    .warning strong { color: #ffdf42; }
+
+    .signal {
+      width: min(72vw, 72vh, 720px);
+      height: min(72vw, 72vh, 720px);
+      min-height: 240px;
+    }
+
+    .signal > svg { width: 100%; height: 100%; display: block; }
+
+    .details {
       margin: 0;
-      opacity: 0.6;
+      color: #b8c2cc;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+    }
+
+    @media (max-height: 700px) {
+      .warning { padding: 0.65rem 0.9rem; font-size: 0.95rem; }
+      .signal { width: min(58vw, 58vh); height: min(58vw, 58vh); }
     }
   </style>
 </head>
-
 <body>
-  <svg xmlns="http://www.w3.org/2000/svg" width="720" height="720"
+  <aside class="warning" role="alert">
+    <strong>Screen-test warning:</strong>
+    Timing estimation and automatic color selection is
+    unreliable when decoding from screen. Use a real LED for
+    representative testing.
+  </aside>
+  <main class="signal" aria-label="Animated LED transmitting Manchester-encoded ITA2">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="720"
      viewBox="0 0 720 720">
-  <title>LED transmitting HELLO WORLD 123 using Manchester-encoded ITA2</title>
-  <desc>60 Hz display timing, 50 ms Manchester half-bit, LTRS and FIGS sync markers</desc>
+  <title>LED transmitting HELLO WORLD 123  using Manchester-encoded ITA2</title>
+  <desc>Manchester half-bit 100 ms, LTRS and FIGS sync markers</desc>
   <defs>
     <radialGradient id="offLed">
-      <stop offset="0" stop-color="#0d5660"/>
-      <stop offset="1" stop-color="#052c34"/>
+      <stop offset="0" stop-color="#001800"/>
+      <stop offset="1" stop-color="#000800"/>
     </radialGradient>
     <radialGradient id="onLed" cx="38%" cy="32%">
-      <stop offset="0" stop-color="#f4ffff"/>
-      <stop offset="0.2" stop-color="#79fff8"/>
-      <stop offset="1" stop-color="#08d8cc"/>
+      <stop offset="0" stop-color="#00ff00"/>
+      <stop offset="0.2" stop-color="#00f000"/>
+      <stop offset="1" stop-color="#00b800"/>
     </radialGradient>
     <filter id="glow" x="-200%" y="-200%" width="400%" height="400%">
       <feGaussianBlur stdDeviation="42"/>
     </filter>
   </defs>
-  <rect width="720" height="720" fill="#020817"/>
+  <rect width="720" height="720" fill="#000000"/>
   <circle cx="360" cy="360" r="66" fill="url(#offLed)"
-          stroke="#0b6670" stroke-width="6"/>
+          stroke="#003000" stroke-width="6"/>
   <g opacity="0">
-    <circle cx="360" cy="360" r="125" fill="#00f5eb"
+    <circle cx="360" cy="360" r="125" fill="#00ff00"
             opacity="0.72" filter="url(#glow)"/>
     <circle cx="360" cy="360" r="66" fill="url(#onLed)"
-            stroke="#d6fffb" stroke-width="7"/>
-    <circle cx="342" cy="336" r="13" fill="#efffff"/>
+            stroke="#00ff00" stroke-width="7"/>
+    <circle cx="342" cy="336" r="13" fill="#00ff00"/>
     <animate attributeName="opacity"
-             values="0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;0"
-             keyTimes="0.000000000;0.097345133;0.115044248;0.123893805;0.128318584;0.132743363;0.137168142;0.146017699;0.154867257;0.163716814;0.168141593;0.172566372;0.181415929;0.185840708;0.190265487;0.194690265;0.199115044;0.203539823;0.207964602;0.212389381;0.216814159;0.225663717;0.234513274;0.238938053;0.243362832;0.252212389;0.261061947;0.269911504;0.278761062;0.283185841;0.287610619;0.296460177;0.305309735;0.309734513;0.314159292;0.318584071;0.323008850;0.331858407;0.336283186;0.340707965;0.349557522;0.353982301;0.358407080;0.367256637;0.376106195;0.380530973;0.384955752;0.393805310;0.398230088;0.402654867;0.411504425;0.415929204;0.420353982;0.429203540;0.438053097;0.442477876;0.446902655;0.451327434;0.455752212;0.464601770;0.469026549;0.473451327;0.477876106;0.486725664;0.504424779;0.513274336;0.517699115;0.526548673;0.535398230;0.544247788;0.553097345;0.557522124;0.561946903;0.570796460;0.579646018;0.584070796;0.588495575;0.597345133;0.601769912;0.606194690;0.615044248;0.619469027;0.623893805;0.632743363;0.641592920;0.646017699;0.650442478;0.654867257;0.659292035;0.668141593;0.676991150;0.681415929;0.685840708;0.699115044;0.725663717;0.738938053;0.743362832;0.747787611;0.752212389;0.756637168;0.765486726;0.774336283;0.778761062;0.783185841;0.787610619;0.792035398;0.800884956;0.805309735;0.809734513;0.818584071;0.823008850;0.827433628;0.836283186;0.840707965;0.845132743;0.849557522;0.853982301;0.858407080;0.862831858;1.000000000"
+             values="0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;1;0;0"
+             keyTimes="0.000000000;0.056872038;0.075829384;0.085308057;0.090047393;0.094786730;0.099526066;0.109004739;0.118483412;0.127962085;0.132701422;0.137440758;0.146919431;0.151658768;0.156398104;0.161137441;0.165876777;0.170616114;0.175355450;0.180094787;0.184834123;0.194312796;0.203791469;0.208530806;0.213270142;0.222748815;0.232227488;0.241706161;0.251184834;0.255924171;0.260663507;0.270142180;0.279620853;0.284360190;0.289099526;0.293838863;0.298578199;0.308056872;0.312796209;0.317535545;0.327014218;0.331753555;0.336492891;0.345971564;0.355450237;0.360189573;0.364928910;0.374407583;0.379146919;0.383886256;0.393364929;0.398104265;0.402843602;0.412322275;0.421800948;0.426540284;0.431279621;0.436018957;0.440758294;0.450236967;0.454976303;0.459715640;0.464454976;0.473933649;0.492890995;0.502369668;0.507109005;0.516587678;0.526066351;0.535545024;0.545023697;0.549763033;0.554502370;0.563981043;0.573459716;0.578199052;0.582938389;0.592417062;0.597156398;0.601895735;0.611374408;0.616113744;0.620853081;0.630331754;0.639810427;0.644549763;0.649289100;0.654028436;0.658767773;0.668246445;0.677725118;0.682464455;0.687203791;0.701421801;0.729857820;0.744075829;0.748815166;0.753554502;0.758293839;0.763033175;0.772511848;0.781990521;0.786729858;0.791469194;0.796208531;0.800947867;0.810426540;0.815165877;0.819905213;0.829383886;0.834123223;0.838862559;0.848341232;0.853080569;0.857819905;0.862559242;0.867298578;0.872037915;0.876777251;0.881516588;0.886255924;0.890995261;0.895734597;0.905213270;0.914691943;0.919431280;0.924170616;1.000000000"
              calcMode="discrete"
-             dur="11.300s"
+             dur="21.100s"
              repeatCount="indefinite"/>
   </g>
 </svg>
-  <p>HELLO WORLD 123 · Manchester ITA2 · T=50 ms</p>
+  </main>
+  <p class="details">HELLO WORLD 123 · Manchester ITA2 · T=100 ms</p>
 </body>
 </html>
